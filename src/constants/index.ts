@@ -23,6 +23,16 @@ export interface Grade {
   grade: string
 }
 
+/**
+ * @description 主题类型
+ */
+export interface ThemeType {
+  id: string
+  type: typeof THEME_LIGHT | typeof THEME_DARK | typeof THEME_SYSTEM
+  icon: string
+  name: string
+}
+
 // category 的本地构建数据
 export const ALL_CATEGORY_ITEM = {
   id: 'all',
