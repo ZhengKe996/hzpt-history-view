@@ -1,6 +1,7 @@
 <template>
   <div class="bg-white sticky top-0 left-0 z-10 dark:bg-zinc-900 duration-500">
     <ul
+      ref="ulTarget"
       class="relative flex overflow-x-auto p-1 text-xs text-zinc-600 overflow-hidden"
     >
       <!-- 滑块 -->
@@ -21,12 +22,12 @@
       <li
         class="shrink-0 px-1.5 py-0.5 z-10 duration-200 last:mr-4"
         :class="{
-          ' text-zinc-100': currentCategoryIndex === index,
+          ' text-zinc-100': categorysStore.getCurrentCategoryIndex === index,
         }"
-        v-for="(item, index) in categorys"
+        v-for="(item, index) in categorysStore.categorys"
         :key="item.id"
         :ref="setItemRef"
-        @click="onItemClick(index)"
+        @click="onItemClick(item)"
       >
         {{ item.name }}
       </li>
@@ -42,8 +43,14 @@
 import { ref, onBeforeUpdate, watch } from 'vue'
 import { useScroll } from '@vueuse/core'
 import { Category, Grade } from '@/constants'
+import { useCategorysStore } from '@/store/category'
+import { useAppStore } from '@/store/app'
 import MobileMenu from '@/views/main/menu'
-defineProps<{ categorys: Category[]; grades: Grade[] }>()
+
+defineProps<{ grades: Grade[] }>()
+
+const appStore = useAppStore()
+const categorysStore = useCategorysStore()
 
 // 滑块
 const sliderStyle = ref({
@@ -51,25 +58,21 @@ const sliderStyle = ref({
   width: '52px',
 })
 
-// 选中 item 下标
-const currentCategoryIndex = ref<number>(0)
 const currentGradeIndex = ref<string>('')
 
-const onItemClick = (index: number) => {
-  currentCategoryIndex.value = index
-}
+const onItemClick = (item: Category) => appStore.changeCurrentCategory(item)
+
 const onItemClick2 = (item: string) => {
   currentGradeIndex.value = item
   console.log(item)
 }
 
-// 获取所有的 item
-let itemRefs: HTMLLIElement[] = []
-
 onBeforeUpdate(() => {
   itemRefs = []
 })
 
+// 获取所有的 item
+let itemRefs: any[] = []
 const setItemRef = (el: any) => {
   if (el) {
     itemRefs.push(el)
@@ -82,10 +85,9 @@ const { x: ulScrollLeft } = useScroll(ulTarget)
 
 // watch 监听
 watch(
-  () => currentCategoryIndex.value,
+  () => categorysStore.getCurrentCategoryIndex,
   (val) => {
     // 获取选中元素的 left、width
-
     const { left, width } = itemRefs[val].getBoundingClientRect()
 
     // 为 sliderStyle 设置属性

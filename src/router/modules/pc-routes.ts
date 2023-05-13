@@ -13,7 +13,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         name: 'home',
-        component: () => import('@/views/layout'),
+        component: () => import('@/views/main'),
       },
     ],
   },

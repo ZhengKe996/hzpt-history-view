@@ -1,35 +1,28 @@
 <template>
-  <MobileNavigation
-    v-if="isMobileTerminal"
-    :categorys="categorys"
-    :grades="grades"
-  />
+  <MobileNavigation v-if="isMobileTerminal" :grades="grades" />
+  <PCNavigation v-else />
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { isMobileTerminal } from '@/utils/flexible'
 import MobileNavigation from './mobile'
-// import PCNavigation from './pc'
-import { getCategory, getGrade } from '@/api/category'
-import { Category, Grade } from '@/constants'
-import { ALL_CATEGORY_ITEM } from '@/constants'
+import PCNavigation from './pc'
+import { getGrade } from '@/api/category'
+import { useCategorysStore } from '@/store/category'
 
-const categorys = ref<Category[]>([])
+import { Grade } from '@/constants'
+
 const grades = ref<Grade[]>([])
 
-const getCategoryData = async () => {
-  const { data } = await getCategory()
-  categorys.value = data as Category[]
-  categorys.value.unshift(ALL_CATEGORY_ITEM)
-}
 const getGradeData = async () => {
   const { data } = await getGrade()
   grades.value = data as Grade[]
 }
+const categorysStore = useCategorysStore()
 
 onMounted(() => {
-  getCategoryData()
+  categorysStore.useCategoryData()
   getGradeData()
 })
 </script>
