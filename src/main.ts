@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import mLibs from './libs'
+import { createPinia } from 'pinia'
 
 import './style.css'
 
@@ -14,4 +15,4 @@ import { useREM } from './utils/flexible'
 
 useREM()
 
-createApp(App).use(router).use(mLibs).mount('#app')
+createApp(App).use(router).use(mLibs).use(createPinia()).mount('#app')
