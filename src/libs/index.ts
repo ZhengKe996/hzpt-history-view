@@ -1,4 +1,5 @@
 import { App, defineAsyncComponent } from 'vue'
+export { message } from './message'
 
 export default {
   install(app: App) {

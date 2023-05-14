@@ -71,6 +71,7 @@ import { useFullscreen, useElementBounding } from '@vueuse/core'
 import { saveAs } from 'file-saver'
 import { Info } from '@/constants'
 import { randomRGB } from '@/utils/color'
+import { message } from '@/libs'
 
 const { info } = defineProps<{ info: Info; width?: number }>()
 const emits = defineEmits(['click'])
@@ -112,6 +113,8 @@ const { enter: onImgFullScreen } = useFullscreen(imgTarget)
  * 下载按钮点击事件
  */
 const onDownload = () => {
+  // 提示消息
+  message('success', '图片开始下载')
   /**
    * 接收两个参数：
    * 1. 下载的图片链接
