@@ -15,6 +15,24 @@ export interface Category {
   name: string
   urlname?: string
 }
+
+export interface Info {
+  tags: Array<string>
+  _id: string
+  photoLink: string
+  photo: string
+  authorLike: string
+  avatar: string
+  author: string
+  photoDownLink: string
+  id: string
+  title: string
+  photoWidth: number
+  photoHeight: number
+  photoType: string
+  __v: number
+}
+
 /**
  * @description Grade 类型
  */
