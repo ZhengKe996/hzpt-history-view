@@ -13,20 +13,33 @@
         :picturePreReading="false"
       >
         <template v-slot="{ item, width }">
-          <ListItem :info="item" :width="width" />
+          <ListItem :info="item" :width="width" @click="onToPins" />
         </template>
       </m-waterfall>
+
+      <!-- 大图详情处理 -->
+      <transition
+        :css="false"
+        @before-enter="beforeEnter"
+        @enter="enter"
+        @leave="leave"
+      >
+        <PinsComponent v-if="isVisiblePins" :id="currentPins.id" />
+      </transition>
     </m-infinite>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { useEventListener } from '@vueuse/core'
+import gsap from 'gsap'
 import { useAppStore } from '@/store/app'
 import ListItem from './list-item.vue'
 import { getInfoList } from '@/api/list'
 import { Info } from '@/constants'
 import { isMobileTerminal } from '@/utils/flexible'
+import PinsComponent from '@/views/pins/components/pins'
 const appStore = useAppStore()
 
 /**
@@ -93,4 +106,70 @@ watch(
     })
   }
 )
+
+// 控制 pins 展示
+const isVisiblePins = ref<boolean>(false)
+
+// 当前选中的 pins 属性
+const currentPins = ref<any>({})
+
+/**
+ * 进入 pins
+ */
+const onToPins = (item: {
+  id: string
+  localtion: { translateX: number; translateY: number }
+}) => {
+  history.pushState(null, '', `/pins/${item.id}`)
+  currentPins.value = item
+  isVisiblePins.value = true
+}
+
+/**
+ * 监听浏览器后退按钮事件
+ */
+useEventListener(window, 'popstate', () => {
+  isVisiblePins.value = false
+})
+
+/**
+ * 进入动画开始前
+ */
+const beforeEnter = (el: Element) => {
+  gsap.set(el, {
+    scaleX: 0,
+    scaleY: 0,
+    transformOrigin: '0 0',
+    translateX: currentPins.value.localtion?.translateX,
+    translateY: currentPins.value.localtion?.translateY,
+    opacity: 0,
+  })
+}
+/**
+ * 进入动画执行中
+ */
+const enter = (el: Element, done: any) => {
+  gsap.to(el, {
+    duration: 0.3,
+    scaleX: 1,
+    scaleY: 1,
+    opacity: 1,
+    translateX: 0,
+    translateY: 0,
+    onComplete: done,
+  })
+}
+/**
+ * 离开动画执行中
+ */
+const leave = (el: Element) => {
+  gsap.to(el, {
+    duration: 0.3,
+    scaleX: 0,
+    scaleY: 0,
+    x: currentPins.value.localtion?.translateX,
+    y: currentPins.value.localtion?.translateY,
+    opacity: 0,
+  })
+}
 </script>

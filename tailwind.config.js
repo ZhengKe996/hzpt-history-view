@@ -31,6 +31,11 @@ export default {
         'error-100': '#ED7456',
         'error-200': '#f3471c',
         'error-300': '#ffffff'
+      }, backdropBlur: {
+        '4xl': '240px'
+      },
+      variants: {
+        scrollbar: ['dark']
       }
     },
   },
