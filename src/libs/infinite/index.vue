@@ -18,31 +18,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { useVModel, useIntersectionObserver } from "@vueuse/core";
+import { ref, watch } from 'vue'
+import { useVModel, useIntersectionObserver } from '@vueuse/core'
 
 interface Props {
-  modelValue: boolean;
-  isFinished?: boolean;
+  modelValue: boolean
+  isFinished?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
   isFinished: false,
-});
+})
 
-const emits = defineEmits(["onLoad", "update:modelValue"]);
+const emits = defineEmits(['onLoad', 'update:modelValue'])
 
 // 处理 loading 状态
-const loading = useVModel(props);
+const loading = useVModel(props)
 
 // 滚动元素
-const loadingTarget = ref(null);
+const loadingTarget = ref(null)
 
 // 记录当前是否在底部
-const targetIsIntersecting = ref(false);
+const targetIsIntersecting = ref(false)
 useIntersectionObserver(loadingTarget, ([{ isIntersecting }]) => {
-  targetIsIntersecting.value = isIntersecting;
-  emits("onLoad");
-});
+  targetIsIntersecting.value = isIntersecting
+  emits('onLoad')
+})
 
 /**
  * 触发 load 事件
@@ -52,14 +52,14 @@ const emitLoad = () => {
     // 当加载更多视图可见时，同时 loading为 false 数据尚未全部加载完 处理更多逻辑
     if (targetIsIntersecting.value && !loading.value && !props.isFinished) {
       // 修改加载数据的标记
-      loading.value = true;
-      emits("onLoad");
+      loading.value = true
+      emits('onLoad')
     }
-  }, 100);
-};
+  }, 100)
+}
 
 /**
  * 监听 loading 变化
  */
-watch(loading, emitLoad);
+watch(loading, emitLoad)
 </script>

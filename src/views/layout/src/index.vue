@@ -1,7 +1,9 @@
 <template>
   <div class="h-screen">
-    <PCHeader />
-    <PCMain />
+    <PCHeader class="h-header" />
+    <div class="h-main">
+      <PCMain />
+    </div>
   </div>
 </template>
 

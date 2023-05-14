@@ -68,7 +68,6 @@ const getInfoData = async () => {
 
   // 修改 loading 标记
   loading.value = false
-  console.log(infolList.value)
 }
 
 /**
