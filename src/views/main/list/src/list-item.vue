@@ -68,6 +68,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useFullscreen, useElementBounding } from '@vueuse/core'
+import { saveAs } from 'file-saver'
 import { Info } from '@/constants'
 import { randomRGB } from '@/utils/color'
 
@@ -110,5 +111,14 @@ const { enter: onImgFullScreen } = useFullscreen(imgTarget)
 /**
  * 下载按钮点击事件
  */
-const onDownload = () => {}
+const onDownload = () => {
+  /**
+   * 接收两个参数：
+   * 1. 下载的图片链接
+   * 2. 下载的文件名称
+   */
+  setTimeout(() => {
+    saveAs(info.photoDownLink, `${info.title} - 作者：${info.author}`)
+  }, 300)
+}
 </script>
