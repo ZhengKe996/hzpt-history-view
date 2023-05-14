@@ -30,17 +30,16 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-
+import { useAppStore } from '@/store/app'
 import { ThemeType } from '@/constants'
 
 const props = defineProps<{ themeArr: ThemeType[] }>()
+const appStore = useAppStore()
 
-const onItemClick = (themeItem: ThemeType) => {
-  console.log(themeItem)
-}
-const svgIconName = computed(() => {
-  const findTheme = props.themeArr[0]
+const onItemClick = (themeItem: ThemeType) =>
+  appStore.changeThemeType(themeItem.type)
 
-  return findTheme?.icon
-})
+const svgIconName = computed(
+  () => props.themeArr.find((item) => item.type === appStore.getThemeType)?.icon
+)
 </script>

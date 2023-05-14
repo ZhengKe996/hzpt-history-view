@@ -34,7 +34,7 @@ export interface ThemeType {
 }
 
 /**
- * @description Category[] 类型
+ * @description CategoryState 类型 (pinia)
  */
 export interface CategoryState {
   categorys: Category[]
@@ -105,3 +105,25 @@ export const THEME_DARK = 'dark'
 export const THEME_LIGHT = 'light'
 // 系统主题
 export const THEME_SYSTEM = 'system'
+
+// 构建渲染数据源
+export const ThemeArray: ThemeType[] = [
+  {
+    id: '0',
+    type: THEME_LIGHT,
+    icon: 'theme-light',
+    name: '极简白',
+  },
+  {
+    id: '1',
+    type: THEME_DARK,
+    icon: 'theme-dark',
+    name: '极夜黑',
+  },
+  {
+    id: '2',
+    type: THEME_SYSTEM,
+    icon: 'theme-system',
+    name: '跟随系统',
+  },
+]
