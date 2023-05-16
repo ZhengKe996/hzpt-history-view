@@ -102,7 +102,7 @@ watch(
     // 重置请求参数
     resetQuery({
       page: 1,
-      categoryId: currentCategory.id,
+      categoryId: currentCategory.urlname,
     })
   }
 )

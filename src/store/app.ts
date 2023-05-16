@@ -18,7 +18,6 @@ export const useAppStore = defineStore({
   },
   getters: {
     getCurrentCategory(): Category {
-      console.log('getCurrentCategory', this.currentCategory)
       return this.currentCategory
     },
     getThemeType():
