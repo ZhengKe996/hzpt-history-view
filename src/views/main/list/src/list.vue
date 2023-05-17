@@ -68,6 +68,7 @@ const getInfoData = async () => {
 
   // 触发接口
   const { data } = await getInfoList(query)
+
   if (query.page === 1) {
     infolList.value = data
   } else {
@@ -75,7 +76,8 @@ const getInfoData = async () => {
   }
 
   // 判断数据是否全部加载完成
-  if (infolList.value.length === data.length * 10) {
+  if (!data.length) {
+    loading.value = false
     isFinished.value = true
   }
 
@@ -102,13 +104,13 @@ watch(
     // 重置请求参数
     resetQuery({
       page: 1,
-      categoryId: currentCategory.urlname,
+      category: currentCategory.name,
     })
   }
 )
 
 /**
- * 监听 currentCategory 的变化
+ * 监听 currentGrade 的变化
  */
 watch(
   () => appStore.getCurrentGrade,

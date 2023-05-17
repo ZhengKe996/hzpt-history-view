@@ -35,7 +35,6 @@ export const useAppStore = defineStore({
   actions: {
     changeCurrentCategory(newCategory: Category) {
       this.currentCategory = newCategory
-      console.log(this.currentCategory.name)
     },
     changeCurrentGrade(newGrade: Grade) {
       this.currentGrade = newGrade
