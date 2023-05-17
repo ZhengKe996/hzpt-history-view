@@ -17,20 +17,20 @@ export interface Category {
 }
 
 export interface Info {
-  tags: Array<string>
-  _id: string
-  photoLink: string
+  id: number
+  category: string
+  grade: string
+
+  classname: string
+  description: string
+
   photo: string
-  authorLike: string
-  avatar: string
-  author: string
   photoDownLink: string
-  id: string
-  title: string
   photoWidth: number
   photoHeight: number
   photoType: string
-  __v: number
+
+  panelimgurl?: string
 }
 
 /**

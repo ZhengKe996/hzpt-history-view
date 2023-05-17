@@ -55,12 +55,12 @@
     </div>
     <!-- 标题 -->
     <p class="text-sm mt-1 font-bold text-zinc-900 dark:text-zinc-300 px-1">
-      {{ info.title }}
+      {{ info.classname }}
     </p>
     <!-- 作者 -->
     <div class="flex items-center mt-1 px-1">
-      <img v-lazy class="h-2 w-2 rounded-full" :src="info.avatar" alt="" />
-      <span class="text-sm text-zinc-500 ml-1">{{ info.author }}</span>
+      <!-- <img v-lazy class="h-2 w-2 rounded-full" :src="info.avatar" alt="" /> -->
+      <span class="text-sm text-zinc-500 ml-1">{{ info.category }}</span>
     </div>
   </div>
 </template>
@@ -121,7 +121,7 @@ const onDownload = () => {
    * 2. 下载的文件名称
    */
   setTimeout(() => {
-    saveAs(info.photoDownLink, `${info.title} - 作者：${info.author}`)
+    saveAs(info.photoDownLink, `${info.classname}`)
   }, 300)
 }
 </script>
