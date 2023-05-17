@@ -34,7 +34,10 @@
     </ul>
 
     <m-popup v-model="isOpenPopup">
-      <MobileMenu :grades="grades" @onItemClick="onItemClick2" />
+      <MobileMenu
+        :grades="categorysStore.getGrades"
+        @onItemClick="onItemClick2"
+      />
     </m-popup>
   </div>
 </template>
@@ -47,8 +50,6 @@ import { useCategorysStore } from '@/store/category'
 import { useAppStore } from '@/store/app'
 import MobileMenu from '@/views/main/menu'
 
-defineProps<{ grades: Grade[] }>()
-
 const appStore = useAppStore()
 const categorysStore = useCategorysStore()
 
@@ -58,14 +59,9 @@ const sliderStyle = ref({
   width: '52px',
 })
 
-const currentGradeIndex = ref<string>('')
-
 const onItemClick = (item: Category) => appStore.changeCurrentCategory(item)
 
-const onItemClick2 = (item: string) => {
-  currentGradeIndex.value = item
-  console.log(item)
-}
+const onItemClick2 = (item: Grade) => appStore.changeCurrentGrade(item)
 
 onBeforeUpdate(() => {
   itemRefs = []

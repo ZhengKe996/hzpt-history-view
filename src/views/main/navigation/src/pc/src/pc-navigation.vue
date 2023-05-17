@@ -44,7 +44,5 @@ const appStore = useAppStore()
 const isOpenCategoty = ref<boolean>(false)
 const triggerState = () => (isOpenCategoty.value = !isOpenCategoty.value)
 
-const onItemClick = (item: Category) => {
-  appStore.changeCurrentCategory(item)
-}
+const onItemClick = (item: Category) => appStore.changeCurrentCategory(item)
 </script>

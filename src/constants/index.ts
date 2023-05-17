@@ -51,17 +51,15 @@ export interface ThemeType {
   name: string
 }
 
-/**
- * @description CategoryState 类型 (pinia)
- */
-export interface CategoryState {
-  categorys: Category[]
-}
-
 // category 的本地构建数据
 export const ALL_CATEGORY_ITEM = {
   id: 'all',
   name: '全部',
+}
+
+export const ALL_Grade_ITEM = {
+  id: 'all',
+  grade: '全部',
 }
 
 // 初始 category 数据

@@ -67,7 +67,7 @@ const getInfoData = async () => {
   }
 
   // 触发接口
-  const { data } = await getInfoList()
+  const { data } = await getInfoList(query)
   if (query.page === 1) {
     infolList.value = data
   } else {
@@ -103,6 +103,20 @@ watch(
     resetQuery({
       page: 1,
       categoryId: currentCategory.urlname,
+    })
+  }
+)
+
+/**
+ * 监听 currentCategory 的变化
+ */
+watch(
+  () => appStore.getCurrentGrade,
+  (currentGrade) => {
+    // 重置请求参数
+    resetQuery({
+      page: 1,
+      grade: currentGrade.grade,
     })
   }
 )
