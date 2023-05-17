@@ -9,7 +9,7 @@
       @clickLeft="onPop"
       @clickRight="onPop"
     >
-      {{ infoData && infoData.title }}
+      {{ infoData && infoData.classname }}
       <template #right>
         <m-svg-icon
           name="share"
@@ -29,7 +29,7 @@
 
     <div class="xl:w-[80%] xl:h-full xl:mx-auto xl:rounded-lg xl:flex">
       <img
-        class="w-screen mb-2 xl:w-3/5 xl:h-full xl:rounded-tl-lg xl:rounded-bl-lg"
+        class="w-screen mb-2 xl:w-4/5 xl:h-full xl:rounded-tl-lg xl:rounded-bl-lg"
         :src="infoData && infoData.photo"
       />
       <div
@@ -53,18 +53,25 @@
         <p
           class="text-base text-zinc-900 dark:text-zinc-200 ml-1 font-bold xl:text-xl xl:mb-5"
         >
-          {{ infoData && infoData.title }}
+          {{ infoData && infoData.classname }}
         </p>
         <!-- 作者 -->
         <div class="flex items-center mt-1 px-1">
-          <img
+          <!-- <img
             v-lazy
             class="h-3 w-3 rounded-full"
             :src="infoData && infoData.avatar"
             alt=""
-          />
+          /> -->
           <span class="text-base text-zinc-900 dark:text-zinc-200 ml-1">{{
-            infoData && infoData.author
+            infoData && infoData.category
+          }}</span>
+        </div>
+
+        <!-- 描述 -->
+        <div class="flex items-center mt-1 px-1">
+          <span class="text-base text-zinc-900 dark:text-zinc-200 ml-1">{{
+            infoData && infoData.description
           }}</span>
         </div>
       </div>

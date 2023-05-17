@@ -21,7 +21,7 @@ export default {
       }, colors: {
         main: '#2B66B1',
         "header-main": "#2B66B1",
-        'hover-main': '#f32836',
+        'hover-main': '#1E90FF',
         'success-100': '#F2F9EC',
         'success-200': '#E4F2DB',
         'success-300': '#7EC050',
